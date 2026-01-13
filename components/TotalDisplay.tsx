@@ -14,9 +14,9 @@ export const TotalDisplay: React.FC<TotalDisplayProps> = ({ adult, child, lap })
   return (
     <div className="bg-white rounded-2xl shadow-lg shadow-slate-100 border border-slate-50 px-8 py-4 flex flex-col items-center min-w-[200px] transition-all duration-300 relative overflow-hidden">
       {/* Discreet POB Display */}
-      <div className="absolute top-2 right-4 flex flex-col items-end opacity-60">
-        <span className="text-[6px] font-black text-slate-300 tracking-[0.2em]">POB</span>
-        <span className="text-[12px] font-bold text-slate-400 tabular-nums leading-none">
+      <div className="absolute top-2 right-4 flex flex-col items-end opacity-70">
+        <span className="text-[8px] font-black text-slate-400 tracking-[0.2em]">POB</span>
+        <span className="text-[18px] font-bold text-slate-500 tabular-nums leading-none">
           {pobCount}
         </span>
       </div>

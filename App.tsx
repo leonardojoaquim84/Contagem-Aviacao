@@ -3,7 +3,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { TotalDisplay } from './components/TotalDisplay';
 import { CounterRow } from './components/CounterRow';
 import { ResetButton } from './components/ResetButton';
-import { VisitCounter } from './components/VisitCounter';
 import { ConfirmationModal } from './components/ConfirmationModal';
 import { CabinDisplay } from './components/CabinDisplay';
 
@@ -23,21 +22,15 @@ const App: React.FC = () => {
   const [cabinA, setCabinA] = useState<CabinState>({ adult: 0, child: 0, lap: 0 });
   const [cabinC, setCabinC] = useState<CabinState>({ adult: 0, child: 0, lap: 0 });
 
-  const [visits, setVisits] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [showDica, setShowDica] = useState<boolean>(false);
+  const [showReminder, setShowReminder] = useState<boolean>(false);
   
   // Initial hint states
   const [showHint, setShowHint] = useState<boolean>(true);
   const [hintOpacity, setHintOpacity] = useState<boolean>(true);
 
-  // Initialize visits and hint timer on mount
+  // Initialize hint timer on mount
   useEffect(() => {
-    const savedVisits = localStorage.getItem('site_visits');
-    const currentVisits = savedVisits ? parseInt(savedVisits, 10) + 1 : 1;
-    setVisits(currentVisits);
-    localStorage.setItem('site_visits', currentVisits.toString());
-
     // Hint timer: visible for 2 seconds, then fade out
     const timer = setTimeout(() => {
       setHintOpacity(false); // Start fade out
@@ -104,19 +97,19 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 space-y-8 select-none bg-slate-50/50 relative overflow-hidden">
       
-      {/* "Dica" Trigger in Top Right Corner */}
+      {/* "Lembrete" Trigger in Top Right Corner */}
       <button 
-        onClick={() => setShowDica(true)}
-        className="absolute top-6 right-6 text-[9px] font-semibold text-slate-400 uppercase tracking-widest hover:text-slate-600 transition-colors cursor-pointer"
+        onClick={() => setShowReminder(true)}
+        className="absolute top-6 right-6 text-[9px] font-semibold text-slate-500 uppercase tracking-widest hover:text-slate-700 transition-colors cursor-pointer"
       >
-        Dica
+        Lembrete
       </button>
 
-      {/* Dica Overlay Message */}
-      {showDica && (
+      {/* Reminder Overlay Message */}
+      {showReminder && (
         <div 
           className="fixed inset-0 z-[60] flex items-center justify-center px-4"
-          onClick={() => setShowDica(false)}
+          onClick={() => setShowReminder(false)}
         >
           {/* Subtle backdrop */}
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
@@ -200,7 +193,6 @@ const App: React.FC = () => {
 
       <div className="mt-8 flex flex-col items-center space-y-6">
         <ResetButton onClick={openResetConfirmation} />
-        <VisitCounter count={visits} />
       </div>
 
       <ConfirmationModal 
